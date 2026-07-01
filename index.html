@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>현대자동차 해외연수 26년도 — 체크리스트</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface-2: #222632;
+      --surface-3: #2a2f3e;
+      --border: #2e3446;
+      --border-hover: #4a5068;
+      --text: #e8eaed;
+      --text-muted: #9aa0b0;
+      --text-dim: #6b7280;
+      --accent: #4f8cff;
+      --accent-soft: rgba(79,140,255,0.12);
+      --red: #ff6b6b;
+      --red-soft: rgba(255,107,107,0.12);
+      --orange: #ffa94d;
+      --orange-soft: rgba(255,169,77,0.12);
+      --green: #51cf66;
+      --green-soft: rgba(81,207,102,0.12);
+      --yellow: #ffd43b;
+      --yellow-soft: rgba(255,212,59,0.12);
+      --purple: #b197fc;
+      --purple-soft: rgba(177,151,252,0.12);
+      --cyan: #66d9e8;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans KR', 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 1000px; margin: 0 auto; padding: 32px 20px 100px; }
+
+    /* 헤더 */
+    .header {
+      text-align: center; margin-bottom: 24px; padding: 40px 28px 32px;
+      background: linear-gradient(135deg, #1a2744 0%, #1a1d27 50%, #2a1a2e 100%);
+      border-radius: 20px; border: 1px solid var(--border); position: relative; overflow: hidden;
+    }
+    .header::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 40%, rgba(79,140,255,0.06) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(177,151,252,0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .header h1 { font-size: 26px; font-weight: 800; position: relative; }
+    .header .sub { font-size: 13px; color: var(--text-muted); margin-top: 10px; position: relative; }
+    .header .live-badge {
+      display: inline-block; padding: 4px 12px; background: var(--red-soft);
+      color: var(--red); border-radius: 20px; font-size: 12px; font-weight: 600;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
+
+    /* 툴바 */
+    .toolbar { display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+    .toolbar button {
+      padding: 8px 16px; border: 1px solid var(--border); background: var(--surface);
+      color: var(--text-muted); border-radius: var(--radius-sm); font-size: 13px;
+      font-family: inherit; cursor: pointer; transition: all .15s;
+    }
+    .toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+    .toolbar button:disabled { opacity: .35; cursor: not-allowed; }
+    .toolbar button:disabled:hover { border-color: var(--border); color: var(--text-muted); }
+    .toolbar .undo-group { display: flex; gap: 4px; margin-right: auto; }
+    .toolbar .undo-group button { padding: 8px 12px; font-size: 15px; line-height: 1; }
+    .undo-count { font-size: 11px; color: var(--text-dim); padding: 0 4px; display: flex; align-items: center; }
+
+    /* 안내 배너 */
+    .guide-banner {
+      display: flex; align-items: center; gap: 10px; padding: 14px 20px;
+      background: var(--accent-soft); border: 1px solid rgba(79,140,255,0.2);
+      border-radius: var(--radius); margin-bottom: 20px; font-size: 13px; color: var(--accent);
+    }
+    .guide-banner .icon { font-size: 18px; flex-shrink: 0; }
+
+    /* 범례 */
+    .legend {
+      display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px;
+      padding: 12px 16px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 12px; color: var(--text-muted);
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+    /* 섹션 */
+    .section { margin-bottom: 36px; }
+    .section-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+      padding-bottom: 10px; border-bottom: 2px solid var(--border);
+    }
+    .section-badge {
+      padding: 5px 14px; border-radius: 20px; font-size: 11px;
+      font-weight: 700; letter-spacing: .3px; white-space: nowrap;
+    }
+    .section-badge.p1 { background: var(--orange-soft); color: var(--orange); }
+    .section-badge.p2 { background: var(--accent-soft); color: var(--accent); }
+    .section-badge.p3 { background: var(--purple-soft); color: var(--purple); }
+    .section-badge.req { background: var(--red-soft); color: var(--red); }
+    .section-title { font-size: 18px; font-weight: 700; flex: 1; }
+    .section-count {
+      font-size: 12px; color: var(--text-dim); background: var(--surface-2);
+      padding: 4px 10px; border-radius: 12px;
+    }
+    .add-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      width: 100%; padding: 12px; margin-top: 8px; border: 2px dashed var(--border);
+      background: transparent; color: var(--text-dim); border-radius: var(--radius);
+      font-size: 13px; font-family: inherit; cursor: pointer; transition: all .15s;
+    }
+    .add-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* 카드 항목 */
+    .item-list { min-height: 20px; }
+    .item {
+      display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px;
+      margin-bottom: 6px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); transition: border-color .15s, box-shadow .15s, opacity .15s;
+      cursor: default; position: relative;
+    }
+    .item:hover { border-color: var(--border-hover); }
+    .item.dragging { opacity: .4; }
+    .item.drag-over { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+
+    .drag-handle {
+      cursor: grab; color: var(--text-dim); font-size: 16px; padding: 2px 4px;
+      flex-shrink: 0; user-select: none; line-height: 1; margin-top: 2px; transition: color .15s;
+    }
+    .drag-handle:hover { color: var(--text-muted); }
+    .drag-handle:active { cursor: grabbing; }
+
+    .status-btn {
+      width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border);
+      background: transparent; cursor: pointer; flex-shrink: 0; margin-top: 1px;
+      transition: all .15s; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: transparent;
+    }
+    .status-btn[data-status="done"] { background: var(--green); border-color: var(--green); color: #fff; }
+    .status-btn[data-status="progress"] { background: var(--yellow-soft); border-color: var(--yellow); color: var(--yellow); }
+    .status-btn[data-status="draft"] { background: var(--orange-soft); border-color: var(--orange); color: var(--orange); }
+
+    .item-content { flex: 1; min-width: 0; }
+    .item-title, .item-detail {
+      border: none; background: transparent; width: 100%; outline: none;
+      font-family: inherit; line-height: 1.5; padding: 0; resize: none;
+    }
+    .item-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .item-detail { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .item-title:focus, .item-detail:focus {
+      background: var(--surface-2); border-radius: 4px; padding: 2px 6px; margin-left: -6px; margin-right: -6px;
+    }
+    .item-title::placeholder, .item-detail::placeholder { color: var(--text-dim); }
+
+    .status-label {
+      font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600;
+      margin-top: 6px; display: inline-block; cursor: pointer; user-select: none;
+    }
+    .status-label[data-status="todo"] { background: var(--red-soft); color: var(--red); }
+    .status-label[data-status="progress"] { background: var(--yellow-soft); color: var(--yellow); }
+    .status-label[data-status="draft"] { background: var(--orange-soft); color: var(--orange); }
+    .status-label[data-status="done"] { background: var(--green-soft); color: var(--green); }
+    .item[data-status="done"] .item-title { color: var(--text-dim); text-decoration: line-through; }
+
+    .delete-btn {
+      opacity: 0; background: none; border: none; color: var(--text-dim);
+      cursor: pointer; font-size: 16px; padding: 2px 6px; border-radius: 4px;
+      transition: all .15s; flex-shrink: 0; margin-top: 1px;
+    }
+    .item:hover .delete-btn { opacity: 1; }
+    .delete-btn:hover { color: var(--red); background: var(--red-soft); }
+
+    /* 타임라인 */
+    .timeline { position: relative; padding-left: 28px; margin-top: 12px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(to bottom, var(--red), var(--orange), var(--accent), var(--green)); border-radius: 2px;
+    }
+    .tl-item {
+      position: relative; margin-bottom: 20px; padding: 14px 18px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .tl-item::before {
+      content: ''; position: absolute; left: -24px; top: 18px;
+      width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg);
+    }
+    .tl-item.current::before { background: var(--red); border-color: var(--red); box-shadow: 0 0 8px rgba(255,107,107,.4); }
+    .tl-item h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .tl-item .current-tag {
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+      background: var(--red-soft); color: var(--red); margin-left: 6px; animation: pulse 2s ease-in-out infinite;
+    }
+    .tl-item ul { list-style: none; }
+    .tl-item li { padding: 2px 0; font-size: 13px; color: var(--text-muted); }
+    .tl-item li::before { content: '\2192'; margin-right: 8px; color: var(--text-dim); }
+
+    /* 토스트 */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: var(--surface-2);
+      border: 1px solid var(--border); color: var(--text); padding: 12px 20px;
+      border-radius: var(--radius); font-size: 13px; z-index: 1000;
+      opacity: 0; transform: translateY(10px); transition: all .3s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* 모달 */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6);
+      z-index: 999; align-items: center; justify-content: center;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 28px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto;
+    }
+    .modal h3 { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
+    .modal textarea {
+      width: 100%; min-height: 200px; background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text); font-family: 'Consolas', monospace;
+      font-size: 12px; padding: 12px; resize: vertical; outline: none;
+    }
+    .modal textarea:focus { border-color: var(--accent); }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+    .modal-actions button {
+      padding: 8px 20px; border-radius: var(--radius-sm); font-size: 13px;
+      font-family: inherit; cursor: pointer; border: 1px solid var(--border);
+      background: var(--surface-2); color: var(--text-muted); transition: all .15s;
+    }
+    .modal-actions button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .container { padding: 16px 12px 80px; }
+      .header { padding: 28px 16px 24px; }
+      .header h1 { font-size: 20px; }
+      .toolbar { justify-content: center; }
+      .toolbar .undo-group { margin-right: 0; width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚗 현대자동차 직원 해외연수 26년도</h1>
+      <div class="sub">
+        <span class="live-badge">● 사전답사 진행 중 (6.24~)</span>
+        <br><span id="lastSaved" style="font-size:13px; font-weight:500; opacity:.9; display:inline-block; margin-top:8px;"></span>
+      </div>
+    </div>
+
+    <!-- 툴바 -->
+    <div class="toolbar">
+      <div class="undo-group">
+        <button id="undoBtn" onclick="undo()" disabled title="되돌리기 (Ctrl+Z)">↩</button>
+        <button id="redoBtn" onclick="redo()" disabled title="다시 실행 (Ctrl+Y)">↪</button>
+        <span class="undo-count" id="undoCount"></span>
+      </div>
+      <button onclick="syncFromCloud()" style="color:var(--accent);">🔄 최신 동기화</button>
+      <button onclick="exportData()">📤 내보내기</button>
+      <button onclick="showImportModal()">📥 불러오기</button>
+      <button onclick="resetData()" style="color:var(--red);">🗑️ 초기화</button>
+    </div>
+
+    <!-- 안내 배너 -->
+    <div class="guide-banner">
+      <span class="icon">☁️</span>
+      <span>
+        이 체크리스트는 <strong>구글 시트(클라우드)와 연동</strong>되어 있습니다. 항목을 수정하면 1.5초 뒤 자동 저장되며, 언제든 '최신 동기화'를 눌러 선임님의 수정사항을 불러올 수 있습니다.
+      </span>
+    </div>
+
+    <!-- 범례 -->
+    <div class="legend">
+      <span style="color:var(--text-dim);">상태 (클릭하여 변경):</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--red);"></span> 미완료</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--yellow);"></span> 진행 중</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--orange);"></span> 초안/검토</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--green);"></span> 완료</span>
+    </div>
+
+    <div id="sections"></div>
+
+    <!-- 타임라인 -->
+    <div class="section" style="margin-top:48px;">
+      <div class="section-header">
+        <span class="section-badge p2">일정</span>
+        <span class="section-title">📅 타임라인</span>
+      </div>
+      <div class="timeline">
+        <div class="tl-item current"><h4>현재 ~ 답사 복귀 <span class="current-tag">● 진행 중</span></h4><ul><li>사전답사 현장 확인 (A-1 ~ A-10)</li><li>텍스트 기반 현황 공유</li></ul></div>
+        <div class="tl-item"><h4>답사 복귀 직후 ~ 7월 중순</h4><ul><li>답사 결과 보고 + 연수 코스 확정안 정리</li><li>독일 도시·방문지 최종 확정</li><li>구글맵 확정 및 핀 포인트 반영</li><li>항공·호텔 정리용 일정 정보 현대차에 공급</li><li>연수 일지 형태 기획·제안</li><li>Notion 페이지 구조 설계</li></ul></div>
+        <div class="tl-item"><h4>7월 중순 ~ 8월</h4><ul><li>가이드 매뉴얼 초안 작성</li><li>연수지 정보 카드 제작</li><li>연수지 안내 영상 제작</li><li>미니 책자·롤링페이퍼 운영 방안 기획</li><li>카톡 채널 구조 설계</li></ul></div>
+        <div class="tl-item"><h4>9월</h4><ul><li>핸디북·연수 일지 제작</li><li>엽서·명찰 인쇄 발주</li><li>카톡 채널 세팅 (차수별)</li><li>Notion 페이지 완성</li></ul></div>
+        <div class="tl-item"><h4>10월~</h4><ul><li>운영 시작 (차수별 순차)</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="modal-overlay" id="importModal">
+    <div class="modal">
+      <h3>📥 데이터 불러오기</h3>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">내보내기한 JSON을 붙여넣고 "적용"을 누르세요.</p>
+      <textarea id="importText" placeholder="JSON 데이터를 여기에 붙여넣기..."></textarea>
+      <div class="modal-actions">
+        <button onclick="hideImportModal()">취소</button>
+        <button class="primary" onclick="importData()">적용</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ===== 구글 스프레드시트 API URL =====
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbz3S2IVKw3CNZJ_ZUW8NrOIXZcljN8U3iaEl8KlhmgoWIJamt-ESyCY2Hq4XEcNM4kVCA/exec';
+
+const DEFAULT_DATA = { sections: [
+  { id:'survey-field', badge:'Part 1', badgeClass:'p1', title:'📍 사전답사 — 현장 확인 사항', items:[
+    {id:'a1',title:'연수 코스 적합성 현장 확인',detail:'튀르키예·독일 동선 이동 시간, 도보 난이도, 버스 정차 가능 여부',status:'todo'},
+    {id:'a2',title:'구글맵 형태 검증',detail:'1안·2안 중 현장에서 적합한 형태 판단',status:'todo'},
+    {id:'a3',title:'구글맵 내 패들렛 접속·업로드 테스트',detail:'현지 인터넷 환경에서 패들렛 정상 작동 여부',status:'todo'},
+    {id:'a4',title:'미션 수행 장소 확인',detail:'각 미션(①~⑤)별 실제 수행 가능 여부, 적합 장소 선정',status:'todo'},
+    {id:'a5',title:'미션별 소요 시간 확인',detail:'미션 안내→수행→패들렛 업로드까지 현실적 소요 시간',status:'todo'},
+    {id:'a6',title:'가이드 멘트·교육 메시지 현장 연결 확인',detail:'실제 연수지에서 멘트가 자연스럽게 전달될 수 있는지',status:'todo'},
+    {id:'a7',title:'연수지별 방문 필요/불필요 판단',detail:'"인터넷 자료로 충분 vs 현장 촬영 필수" 판단 기록',status:'todo'},
+    {id:'a8',title:'연수지 사진 촬영',detail:'정보 카드·안내 영상·엽서 제작용 고해상도 사진 확보',status:'todo'},
+    {id:'a9',title:'독일 도시 확정 관련 현장 정보 수집',detail:'뮌헨(BMW·테슬라) vs 슈투트가르트 비교',status:'todo'},
+    {id:'a10',title:'포드 방문 가능 여부 현장 확인',detail:'추가 제안된 포드 방문지 실현 가능성',status:'todo'},
+  ]},
+  { id:'survey-follow', badge:'Part 1', badgeClass:'p1', title:'⚡ 사전답사 — 답사 후 즉시 처리', items:[
+    {id:'a11',title:'답사 결과 현대차 보고',detail:'텍스트 기반 수시 현황 공유 (담당자 보고용)',status:'todo'},
+    {id:'a12',title:'연수 코스 확정안 정리',detail:'답사 결과 반영하여 최종 동선·도시·방문지 확정',status:'todo'},
+    {id:'a13',title:'구글맵 확정 및 핀 포인트 정리',detail:'확인된 동선+미션 장소+쇼핑/맛집 핀 반영',status:'todo'},
+    {id:'a14',title:'항공·호텔 정리를 위한 일정 정보 공급',detail:'현대차/드림투어에 확정 코스 기반 정보 전달',status:'todo'},
+  ]},
+  { id:'main-content', badge:'Part 2', badgeClass:'p2', title:'📚 본교육 — 교육 콘텐츠·교재류', items:[
+    {id:'b1',title:'가이드 매뉴얼 (인솔자용)',detail:'연수지 변경으로 전면 재작성. 직종별 분기',status:'todo'},
+    {id:'b2',title:'학습자용 핸디북',detail:'별도 제작 확정. 일정·연수지 확정 후 제작',status:'todo'},
+    {id:'b3',title:'연수 일지 ⭐신규',detail:'성찰노트 대체. "나의 연수 일기" 컨셉. 세부 형태 논의 필요',status:'todo'},
+    {id:'b4',title:'가이드 멘트 스크립트',detail:'연수지별 멘트 초안 있음 → 간소화 방향 반영 재정비',status:'draft'},
+    {id:'b5',title:'연수지별 교육 메시지 정의',detail:'일부 "추후 과정개발 예정" → 답사 결과 반영 완성',status:'draft'},
+    {id:'b6',title:'유럽 번호판 사전 학습 자료 ⭐신규',detail:'[M4] 미션④ 수행 위한 사전교육 콘텐츠',status:'todo'},
+  ]},
+  { id:'main-digital', badge:'Part 2', badgeClass:'p2', title:'💻 본교육 — 플랫폼·디지털 세팅', items:[
+    {id:'b8',title:'Notion 통합 정보 페이지 ⭐신규',detail:'학습자용 — 연수지·지도·준비물·일정 통합',status:'todo'},
+    {id:'b9',title:'구글맵 전용 제작',detail:'연수 동선+미션 장소+쇼핑/맛집 핀',status:'todo'},
+    {id:'b10',title:'카카오톡 채널 세팅',detail:'유지 확정. 전날 저녁 다음날 연수지 안내 영상',status:'todo'},
+    {id:'b14',title:'패들렛(Padlet) 세팅',detail:'미션 제출 채널 + 마지막 날 롤링페이퍼',status:'todo'},
+    {id:'b13',title:'카톡 채널 일정표 카드',detail:'차수별 일정 확정 후 제작',status:'todo'},
+    {id:'b15',title:'연수지 정보 카드',detail:'튀르키예/독일 신규 제작. 답사 사진 활용',status:'todo'},
+    {id:'b16',title:'연수지 안내 영상',detail:'사진 기반 스케치형 영상 — 전날 카톡 발송용',status:'todo'},
+    {id:'b11',title:'카톡 채널 일자별 썸네일',detail:'일정 확정 후 제작',status:'todo'},
+    {id:'b12',title:'카톡 채널 미션 안내 카드',detail:'미션 간소화 방향 확정 후 제작',status:'todo'},
+    {id:'b17',title:'추천 방문지·쇼핑·맛집 안내',detail:'구글맵 핀 기반, Notion 연계',status:'todo'},
+    {id:'b18',title:'만족도 조사 안내 카드',detail:'운영 시작 전 준비',status:'todo'},
+  ]},
+  { id:'main-mission', badge:'Part 2', badgeClass:'p2', title:'🎯 본교육 — 현장 미션 (간소화·사진인증 중심)', items:[
+    {id:'m1',title:'① 현대차 찾기',detail:'유럽 현지 현대차 사진 → 패들렛',status:'draft'},
+    {id:'m2',title:'② 경쟁차 디테일 비교',detail:'마감·시트·디테일 촬영 + 장단점 메모',status:'draft'},
+    {id:'m3',title:'③ EV 인프라 사진',detail:'현지 전기차 충전소 사진 → 패들렛',status:'draft'},
+    {id:'m4',title:'④ 번호판 탐색 (니어쇼어링)',detail:'TR·KR 등 타국 생산 번호판 → 패들렛',status:'draft'},
+    {id:'m5',title:'⑤ 물류 허브 체감',detail:'이스탄불 해협 단체사진 + 의미 기록',status:'draft'},
+  ]},
+  { id:'main-print', badge:'Part 2', badgeClass:'p2', title:'🖨️ 본교육 — 오프라인 인쇄물·굿즈', items:[
+    {id:'b19',title:'엽서 (기술직·연구판매정비직)',detail:'연수지 이미지 교체 필수. 답사 사진 활용',status:'todo'},
+    {id:'b20',title:'엽서 봉투',detail:'기존 165x115mm 재활용 가능 여부 검토',status:'todo'},
+    {id:'b21',title:'명찰',detail:'참가자 명단 확정 후 제작',status:'todo'},
+    {id:'b22',title:'출발 안내자료 (참가자 PPT)',detail:'일정·호텔·준비물 포함',status:'todo'},
+  ]},
+  { id:'main-ops', badge:'Part 2', badgeClass:'p2', title:'⚙️ 본교육 — 운영 관리', items:[
+    {id:'b23',title:'차수별 일정표 (호텔·방문지 확정)',detail:'현대차 측 역요청 중. 답사 결과 반영 후 확정',status:'todo'},
+    {id:'b24',title:'인솔자 체크리스트',detail:'가이드 매뉴얼과 병행 제작',status:'todo'},
+    {id:'b26',title:'참가자 명단 (직종별, 차수별)',detail:'고객사 수령 필요',status:'todo'},
+    {id:'b27',title:'직종 구분 방식 확정',detail:'매뉴얼·핸디북·미션 분기 기준',status:'todo'},
+    {id:'b28',title:'현대차 수시 현황 공유',detail:'텍스트 기반 그때그때 공유',status:'done'},
+    {id:'b25',title:'출력·발주 체크리스트',detail:'인쇄물 종류 변경(지류미션 삭제) 반영',status:'todo'},
+  ]},
+  { id:'post', badge:'Part 3', badgeClass:'p3', title:'🔮 사후교육(콘텐츠) 준비', items:[
+    {id:'c1',title:'트래블노트 환류 방향 재설계',detail:'조별·차수별 큰 단위 전환. 산출물 형태 제안 필요',status:'todo'},
+    {id:'c2',title:'미니 책자(콘텐츠) 제작 체계 ⭐신규',detail:'인증샷+코멘트→PDF/웹진→사내 배포',status:'todo'},
+    {id:'c3',title:'미니 책자 — 우수 공유 시상',detail:'우수 공유 인원(조) 대상 시상 기획',status:'todo'},
+    {id:'c4',title:'QR코드 기프티콘 추첨',detail:'제출 완료 인원 대상 랜덤 기프티콘 추첨 이벤트',status:'todo'},
+    {id:'c5',title:'마지막 날 "한 줄 소감" 롤링페이퍼 ⭐신규',detail:'디지털 롤링페이퍼 세팅·운영 방안',status:'todo'},
+    {id:'c6',title:'트래블노트 웹사이트 여부 결정',detail:'별도 웹사이트 vs 카톡+Notion 대체',status:'todo'},
+    {id:'c7',title:'"나의 연수 일기" 컨셉 기획',detail:'질문 던지고 개인별 답 기록. 트래블노트 경량화',status:'todo'},
+    {id:'c8',title:'사후 부서 공유회 운영 방안',detail:'"꼭 보여주고 싶은 순간" 주제 발표',status:'todo'},
+  ]},
+  { id:'requests', badge:'요청', badgeClass:'req', title:'🎯 현대차에 확인·요청해야 할 사항', items:[
+    {id:'r1',title:'독일 도시 확정 (슈투트가르트 vs 뮌헨)',detail:'뮌헨 검토 중 — 답사 복귀 후 확정',status:'todo'},
+    {id:'r2',title:'차수 편성표·일정 확정',detail:'상호 역요청 중 — 답사 결과 반영 후',status:'todo'},
+    {id:'r3',title:'포드 방문 가능 여부',detail:'현대차 확인 중',status:'todo'},
+    {id:'r4',title:'직종 구분 방식 확정',detail:'미확정',status:'todo'},
+    {id:'r5',title:'가이드 멘트 스크립트 검토·승인',detail:'초안 있음, 피드백 대기',status:'todo'},
+    {id:'r6',title:'미니 책자 템플릿·배포 형태 합의',detail:'미기획',status:'todo'},
+    {id:'r7',title:'사전교육 AI 체험 상세 방향',detail:'AI 툴 추천 요청받음',status:'todo'},
+    {id:'r8',title:'참가자 명단 수령',detail:'미수신',status:'todo'},
+    {id:'r9',title:'사후 콘텐츠 환류 방식 최종 합의',detail:'방향만 제시 (조별/차수별)',status:'todo'},
+  ]}
+]};
+
+const STATUS_CYCLE = ['todo','progress','draft','done'];
+const STATUS_LABELS = {todo:'미완료', progress:'진행 중', draft:'초안/검토', done:'완료'};
+const STATUS_ICONS = {todo:'', progress:'◔', draft:'✎', done:'✓'};
+const STORAGE_KEY = 'hyundai_checklist_v3';
+const HISTORY_KEY = 'hyundai_checklist_history_v3';
+const MAX_HISTORY = 80;
+
+let data;
+let history = [];      
+let future = [];       
+let textEditSnapshot = null; 
+let isSyncing = false;
+
+// ===== 초기화 (클라우드 로딩 포함) =====
+async function init() {
+  showToast('☁️ 클라우드에서 데이터를 불러오는 중...');
+  try {
+    const res = await fetch(GAS_URL + '?t=' + Date.now()); // 캐시 방지
+    const cloudData = await res.json();
+    
+    if (cloudData && cloudData.sections && cloudData.sections.length > 0) {
+      data = cloudData;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      showToast('☁️ 구글 시트와 동기화 완료!');
+    } else {
+      // 구글 시트가 비어있는 경우(최초 실행)
+      loadLocalOrDefault();
+      saveAction(); // 현재 데이터를 구글 시트에 덮어쓰기
+    }
+  } catch (err) {
+    console.warn('클라우드 로딩 실패', err);
+    showToast('⚠️ 오프라인 모드 (클라우드 연결 실패)');
+    loadLocalOrDefault();
+  }
+
+  loadHistory();
+  render();
+  setTimestamp('☁️ 방금 전 클라우드와 동기화됨');
+  updateUndoUI();
+}
+
+function loadLocalOrDefault() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    try { data = JSON.parse(saved); } catch { data = JSON.parse(JSON.stringify(DEFAULT_DATA)); }
+  } else {
+    data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  }
+}
+
+// ===== 수동 동기화 =====
+async function syncFromCloud() {
+  if (isSyncing) return;
+  isSyncing = true;
+  document.body.style.cursor = 'wait';
+  showToast('🔄 클라우드 최신 데이터를 가져옵니다...');
+  try {
+    const res = await fetch(GAS_URL + '?t=' + Date.now());
+    const cloudData = await res.json();
+    if (cloudData && cloudData.sections && cloudData.sections.length > 0) {
+      data = cloudData;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      render();
+      setTimestamp('☁️ 방금 전 클라우드와 동기화됨');
+      showToast('✅ 최신 내용으로 동기화되었습니다!');
+    }
+  } catch (err) {
+    showToast('⚠️ 동기화 실패. 인터넷 연결을 확인하세요.');
+  } finally {
+    isSyncing = false;
+    document.body.style.cursor = 'default';
+  }
+}
+
+// ===== 저장 액션 (로컬 즉시 저장 + 클라우드 디바운스 저장) =====
+let syncTimer = null;
+function saveAction() {
+  // 로컬 즉시 저장
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  document.getElementById('lastSaved').textContent = '⏳ 클라우드에 저장하는 중...';
+  
+  if (syncTimer) clearTimeout(syncTimer);
+  
+  // 1.5초 후 클라우드 저장
+  syncTimer = setTimeout(async () => {
+    try {
+      await fetch(GAS_URL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+      });
+      const n = new Date();
+      const s = `${n.getFullYear()}.${String(n.getMonth()+1).padStart(2,'0')}.${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
+      setTimestamp(`☁️ ${s} 클라우드 저장 완료`);
+    } catch (e) {
+      console.error('클라우드 저장 실패', e);
+      setTimestamp(`⚠️ 클라우드 저장 실패 (로컬에만 저장됨)`);
+    }
+  }, 1500);
+}
+
+function setTimestamp(msg) {
+  document.getElementById('lastSaved').innerHTML = msg;
+}
+
+// ===== 히스토리(되돌리기) 관리 =====
+function snapshot() { return JSON.stringify(data); }
+
+function pushHistory(label) {
+  const snap = snapshot();
+  if (history.length > 0 && history[history.length - 1].snap === snap) return;
+  history.push({ snap, label });
+  if (history.length > MAX_HISTORY) history.shift();
+  future = []; 
+  updateUndoUI();
+  saveHistory();
+}
+
+function undo() {
+  if (history.length === 0) return;
+  future.push({ snap: snapshot(), label: 'redo' });
+  const prev = history.pop();
+  data = JSON.parse(prev.snap);
+  saveAction();
+  render();
+  updateUndoUI();
+  saveHistory();
+  showToast('↩ 되돌리기 완료');
+}
+
+function redo() {
+  if (future.length === 0) return;
+  history.push({ snap: snapshot(), label: 'undo' });
+  const next = future.pop();
+  data = JSON.parse(next.snap);
+  saveAction();
+  render();
+  updateUndoUI();
+  saveHistory();
+  showToast('↪ 다시 실행 완료');
+}
+
+function updateUndoUI() {
+  const ub = document.getElementById('undoBtn');
+  const rb = document.getElementById('redoBtn');
+  const uc = document.getElementById('undoCount');
+  ub.disabled = history.length === 0;
+  rb.disabled = future.length === 0;
+  uc.textContent = history.length > 0 ? `되돌리기 ${history.length}회 가능` : '';
+}
+
+function saveHistory() {
+  try {
+    const trimmed = history.slice(-30);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify({ history: trimmed, future: future.slice(-10) }));
+  } catch(e) { }
+}
+
+function loadHistory() {
+  try {
+    const saved = localStorage.getItem(HISTORY_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      history = parsed.history || [];
+      future = parsed.future || [];
+    }
+  } catch(e) { history = []; future = []; }
+}
+
+document.addEventListener('keydown', e => {
+  const isMeta = e.ctrlKey || e.metaKey;
+  if (!isMeta) return;
+  if (e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); } 
+  else if (e.key === 'y' || (e.key === 'z' && e.shiftKey)) { e.preventDefault(); redo(); }
+});
+
+
+// ===== 렌더링 =====
+function render() {
+  const container = document.getElementById('sections');
+  container.innerHTML = '';
+  data.sections.forEach((sec, si) => {
+    const div = document.createElement('div');
+    div.className = 'section';
+    const doneCount = sec.items.filter(i => i.status === 'done').length;
+    div.innerHTML = `
+      <div class="section-header">
+        <span class="section-badge ${sec.badgeClass}">${sec.badge}</span>
+        <span class="section-title">${sec.title}</span>
+        <span class="section-count">${doneCount}/${sec.items.length}</span>
+      </div>
+      <div class="item-list" data-section="${si}"></div>
+      <button class="add-btn" data-si="${si}">+ 항목 추가</button>
+    `;
+    container.appendChild(div);
+    const list = div.querySelector('.item-list');
+    sec.items.forEach(item => list.appendChild(createItemEl(item, si)));
+    div.querySelector('.add-btn').addEventListener('click', () => addItem(si));
+
+    list.addEventListener('dragover', e => {
+      e.preventDefault();
+      const afterEl = getDragAfterElement(list, e.clientY);
+      const draggingEl = document.querySelector('.dragging');
+      if (!draggingEl) return;
+      if (afterEl) list.insertBefore(draggingEl, afterEl);
+      else list.appendChild(draggingEl);
+    });
+    list.addEventListener('drop', e => { e.preventDefault(); reorderFromDOM(si, list); });
+  });
+}
+
+function createItemEl(item, si) {
+  const el = document.createElement('div');
+  el.className = 'item';
+  el.draggable = true;
+  el.dataset.id = item.id;
+  el.dataset.status = item.status;
+
+  el.innerHTML = `
+    <span class="drag-handle" title="드래그하여 순서 변경">⠿</span>
+    <button class="status-btn" data-status="${item.status}" title="상태 변경">${STATUS_ICONS[item.status]}</button>
+    <div class="item-content">
+      <textarea class="item-title" rows="1" placeholder="항목명 입력">${esc(item.title)}</textarea>
+      <textarea class="item-detail" rows="1" placeholder="세부 내용 (선택)">${esc(item.detail)}</textarea>
+      <span class="status-label" data-status="${item.status}">${STATUS_LABELS[item.status]}</span>
+    </div>
+    <button class="delete-btn" title="삭제">&times;</button>
+  `;
+
+  // 드래그
+  el.addEventListener('dragstart', () => {
+    pushHistory('순서 변경 전');
+    el.classList.add('dragging');
+  });
+  el.addEventListener('dragend', () => {
+    el.classList.remove('dragging');
+    const list = el.closest('.item-list');
+    if (list) reorderFromDOM(parseInt(list.dataset.section), list);
+  });
+
+  // 상태 변경
+  const cycleStatus = () => {
+    pushHistory('상태 변경');
+    const ci = STATUS_CYCLE.indexOf(item.status);
+    item.status = STATUS_CYCLE[(ci + 1) % STATUS_CYCLE.length];
+    saveAction(); render();
+  };
+  el.querySelector('.status-btn').addEventListener('click', cycleStatus);
+  el.querySelector('.status-label').addEventListener('click', cycleStatus);
+
+  // 텍스트 편집
+  const titleEl = el.querySelector('.item-title');
+  const detailEl = el.querySelector('.item-detail');
+  autoResize(titleEl); autoResize(detailEl);
+
+  function onFocus() { textEditSnapshot = snapshot(); }
+  function onBlurTitle() {
+    item.title = titleEl.value;
+    if (textEditSnapshot && textEditSnapshot !== snapshot()) {
+      history.push({ snap: textEditSnapshot, label: '텍스트 수정 전' });
+      if (history.length > MAX_HISTORY) history.shift();
+      future = [];
+      updateUndoUI(); saveHistory();
+      saveAction();
+    }
+    textEditSnapshot = null;
+  }
+  function onBlurDetail() {
+    item.detail = detailEl.value;
+    if (textEditSnapshot && textEditSnapshot !== snapshot()) {
+      history.push({ snap: textEditSnapshot, label: '텍스트 수정 전' });
+      if (history.length > MAX_HISTORY) history.shift();
+      future = [];
+      updateUndoUI(); saveHistory();
+      saveAction();
+    }
+    textEditSnapshot = null;
+  }
+
+  titleEl.addEventListener('focus', onFocus);
+  titleEl.addEventListener('blur', onBlurTitle);
+  titleEl.addEventListener('input', () => { item.title = titleEl.value; autoResize(titleEl); saveAction(); });
+  detailEl.addEventListener('focus', onFocus);
+  detailEl.addEventListener('blur', onBlurDetail);
+  detailEl.addEventListener('input', () => { item.detail = detailEl.value; autoResize(detailEl); saveAction(); });
+
+  // 삭제
+  el.querySelector('.delete-btn').addEventListener('click', () => {
+    if (confirm(`"${item.title}" 항목을 삭제하시겠습니까?`)) {
+      pushHistory('항목 삭제');
+      const sec = data.sections[si];
+      sec.items.splice(sec.items.indexOf(item), 1);
+      saveAction(); render();
+      showToast('항목이 삭제되었습니다');
+    }
+  });
+
+  return el;
+}
+
+function autoResize(el) {
+  requestAnimationFrame(() => { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; });
+}
+
+// ===== 드래그 정렬 =====
+function getDragAfterElement(container, y) {
+  const els = [...container.querySelectorAll('.item:not(.dragging)')];
+  return els.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if (offset < 0 && offset > closest.offset) return { offset, element: child };
+    return closest;
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+function reorderFromDOM(sectionIdx, listEl) {
+  const ids = [...listEl.querySelectorAll('.item')].map(el => el.dataset.id);
+  const sec = data.sections[sectionIdx];
+  const reordered = ids.map(id => sec.items.find(i => i.id === id)).filter(Boolean);
+  if (reordered.length === sec.items.length) {
+    sec.items = reordered;
+    saveAction();
+  }
+}
+
+// ===== 항목 추가 =====
+function addItem(si) {
+  pushHistory('항목 추가');
+  data.sections[si].items.push({ id: 'item_' + Date.now(), title: '', detail: '', status: 'todo' });
+  saveAction(); render();
+  setTimeout(() => {
+    const lists = document.querySelectorAll('.item-list');
+    const last = lists[si]?.querySelector('.item:last-child .item-title');
+    if (last) last.focus();
+  }, 50);
+  showToast('새 항목 추가');
+}
+
+// ===== 내보내기/불러오기 =====
+function exportData() {
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `현대차_체크리스트_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  showToast('JSON 파일로 내보냈습니다');
+}
+
+function showImportModal() { document.getElementById('importModal').classList.add('show'); document.getElementById('importText').value = ''; }
+function hideImportModal() { document.getElementById('importModal').classList.remove('show'); }
+
+function importData() {
+  const text = document.getElementById('importText').value.trim();
+  if (!text) { alert('JSON 데이터를 입력해주세요.'); return; }
+  try {
+    const parsed = JSON.parse(text);
+    if (!parsed.sections) throw new Error('형식 오류');
+    pushHistory('불러오기 전');
+    data = parsed;
+    saveAction(); render(); hideImportModal();
+    showToast('데이터를 성공적으로 적용했습니다!');
+  } catch (e) { alert('JSON 오류: ' + e.message); }
+}
+
+function resetData() {
+  if (confirm('정말 초기 상태로 되돌리시겠습니까?\n모든 수정사항이 사라집니다.')) {
+    pushHistory('초기화 전');
+    data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+    saveAction(); render();
+    showToast('초기 상태로 되돌렸습니다');
+  }
+}
+
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+document.getElementById('importModal').addEventListener('click', e => { if (e.target === e.currentTarget) hideImportModal(); });
+
+init();
+</script>
+</body>
+</html>
