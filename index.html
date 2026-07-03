@@ -795,11 +795,16 @@ function addSection(partId) {
   saveAction(); render();
   showToast('하위파트가 추가되었습니다');
 
-  // 새로 생긴 타이틀에 포커스
+  // 새로 생긴 타이틀에 포커스 (스크롤 점프 방지)
   setTimeout(() => {
     const inputs = document.querySelectorAll('.section-title-input');
     for (const inp of inputs) {
-      if (inp.value === '새 하위파트') { inp.focus(); inp.select(); break; }
+      if (inp.value === '새 하위파트') {
+        inp.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        inp.focus({ preventScroll: true });
+        inp.select();
+        break;
+      }
     }
   }, 100);
 }
@@ -812,7 +817,10 @@ function addItem(si) {
   setTimeout(() => {
     const lists = document.querySelectorAll('.item-list');
     const last = lists[si]?.querySelector('.item:last-child .item-title');
-    if (last) last.focus();
+    if (last) {
+      last.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      last.focus({ preventScroll: true });
+    }
   }, 50);
 }
 
